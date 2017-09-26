@@ -27,7 +27,7 @@ int bg = color(200,200,200);
  {
  	int x, y, angle;
  	int speed = 5;
- 	int colour;
+ 	color colour;
 	Bacteria() {
 		x = (int) (Math.random() * 405) - 4;
 		y = (int) (Math.random() * 405) - 4;
@@ -40,9 +40,16 @@ int bg = color(200,200,200);
 		angle = (int) (Math.random()* 364)-3;
 
 		//If mouse collides with this 
-		if(get(mouseX, mouseY) == this.colour){
-			angle = (int) (atan((y-mouseY)/(x-mouseX))/PI/2*360);
+		if(get(mouseX, mouseY) == colour){
+			angle = (int) (atan((mouseY-y)/(mouseX-x))/PI/2*360);
+			System.out.println(angle);
 		}
+
+		if(mousePressed){
+			speed = 8;
+			angle = mouseY-y == 0 ? (int) (atan(0)*360/PI/2) : (int) (atan((mouseX-x)/(mouseY-y))*360/PI/2);
+			System.out.println(angle);
+		} else speed = 5;
 
 		//For loop that moves toward angle direction
 		if (x < 0) x = 0;
@@ -53,7 +60,7 @@ int bg = color(200,200,200);
 			y = y + (int) (sin(2*PI*angle/360)*speed);
 	}
 	void show(){
-		fill(colour[0], colour[1], colour[2]);
+		fill(colour);
 		ellipse(x, y, 50, 50);
 	}
  }    
