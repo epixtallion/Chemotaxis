@@ -25,7 +25,8 @@ int bg = color(200,200,200);
  }  
  class Bacteria    
  {
- 	int x, y, angle;
+ 	int x, y;
+ 	float angle;
  	int speed = 5;
  	color colour;
 	Bacteria() {
@@ -37,27 +38,27 @@ int bg = color(200,200,200);
 	}
 	void move(){
 		//Random angle within range for moving towards
-		angle = (int) (Math.random()* 364)-3;
+		angle = (float) (Math.random()*2*PI);
 
 		//If mouse collides with this 
 		if(get(mouseX, mouseY) == colour){
-			angle = (int) (atan((mouseY-y)/(mouseX-x))/PI/2*360);
+			angle = mouseY-y == 0 ? PI/2 : atan((x-mouseX)/(mouseY-y));
 			System.out.println(angle);
 		}
 
 		if(mousePressed){
 			speed = 8;
-			angle = mouseY-y == 0 ? (int) (atan(0)*360/PI/2) : (int) (atan((mouseX-x)/(mouseY-y))*360/PI/2);
+			angle = mouseY-y == 0 ? PI/2 : atan((x-mouseX)/(mouseY-y));
 			System.out.println(angle);
 		} else speed = 5;
 
 		//For loop that moves toward angle direction
 		if (x < 0) x = 0;
 		else if (x>400) x = 400; else
-			x = x + (int) (cos(2*PI*angle/360)*speed);
+			x = x + (int) (sin(angle)*speed);
 		if (y < 0) y = 0;
 		else if (y>400) y = 400; else
-			y = y + (int) (sin(2*PI*angle/360)*speed);
+			y = y - (int) (cos(angle)*speed);
 	}
 	void show(){
 		fill(colour);
