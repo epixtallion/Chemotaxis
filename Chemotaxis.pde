@@ -14,8 +14,8 @@ color bg = color(52, 102, 155);
  }   
  void draw()   
  {
- 	clear();
- 	background(bg);
+ 	fill(bg);
+ 	rect(0, 0, 400, 400);
  	for(int i = 0; i < b.length; i++){
  		b[i].move();
  		for(int ii = 0; ii < b[i].speed; ii++){
@@ -64,4 +64,24 @@ color bg = color(52, 102, 155);
 			ellipse(x+15, y, 4, 10);
 		}
 	}
- }    
+ }
+ /*class Bubble{
+ 	int x, y, size, speed;
+ 	boolean dead = false
+ 	Bubble(){
+ 		x = (int) (Math.random() * 405) - 4;
+ 		y = 400;
+ 		size = (int) (Math.random() * 25) + 5;
+ 		speed = (int) (Math.random() * 10) + 1;
+ 	}
+ 	void move(){
+ 		if (!dead){
+ 			int offset = y%(800/speed) < 400/speed  ? (int) (Math.random()*speed + 1)
+ 				: (int) (Math.random()*speed - speed);
+ 			y = y + speed;
+ 			x = x + offset;
+ 			fill(144, 244, 239, 30);
+ 			ellipse()
+ 		}
+ 	}
+ }*/
