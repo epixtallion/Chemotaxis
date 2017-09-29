@@ -2,7 +2,7 @@
 Bacteria b[] = new Bacteria[20];
 
 //background color variable
-int bg = color(200,200,200);
+color bg = color(52, 102, 155);
 
  void setup()   
  {
@@ -14,8 +14,8 @@ int bg = color(200,200,200);
  }   
  void draw()   
  {
- 	fill(200, 200 ,200);
- 	rect(0, 0, 400, 400);
+ 	clear();
+ 	background(bg);
  	for(int i = 0; i < b.length; i++){
  		b[i].move();
  		for(int ii = 0; ii < b[i].speed; ii++){
@@ -32,31 +32,36 @@ int bg = color(200,200,200);
 	Bacteria() {
 		x = (int) (Math.random() * 405) - 4;
 		y = (int) (Math.random() * 405) - 4;
-		colour = color((int) (Math.random() * 203) + 53,
-			(int) (Math.random() * 203) + 53,
-			(int) (Math.random() * 203) + 53);
 	}
 	void move(){
-		//If mouse collides with this or mouse pressed 
-		if(get(mouseX, mouseY) == colour){
+		//If mouse pressed
+		if(mousePressed){
+			int xAdd = x-mouseX < 0 ? -1 : 1;
+			int yAdd = y-mouseY < 0 ? -1 : 1;
 			x = x<0 ? 0
-				: x>400 ? 0 : x + (int) (Math.random()*2*(speed+speed/(x-mouseX))-speed);
+				: x>400 ? 400 : x + (int) (Math.random()*(2*speed+1))-speed+speed*xAdd;
 			y = y<0 ? 0
-				: y>400 ? 0 : y + (int) (Math.random()*2*(speed+speed/(y-mouseY))-speed);
-		} else if(mousePressed){
-			x = x<0 ? 0
-				: x>400 ? 0 : x + (int) (Math.random()*2*(speed+speed/(x-mouseX))-speed);
-			y = y<0 ? 0
-				: y>400 ? 0 : y + (int) (Math.random()*2*(speed+speed/(y-mouseY))-speed);
+				: y>400 ? 400 : y + (int) (Math.random()*(2*speed+1))-speed+speed*yAdd;
 		} else {
 			x = x<0 ? 0
-				: x>400 ? 0 : x + (int) (Math.random()*2*(speed+1)-speed);
+				: x>400 ? 400 : x + (int) (Math.random()*(2*speed+1))-speed;
 			y = y<0 ? 0
-				: y>400 ? 0 : y + (int) (Math.random()*2*(speed+1)-speed);
+				: y>400 ? 400 : y + (int) (Math.random()*(2*speed+1))-speed;
 		}
 	}
 	void show(){
-		fill(colour);
+		stroke(1);
+		fill(255, 183, 68);
 		ellipse(x, y, 50, 50);
+		noStroke();
+		if(mousePressed){
+			fill(50);
+			ellipse(x-15, y, 10, 10);
+			ellipse(x+15, y, 10, 10);
+		} else {
+			fill(50);
+			ellipse(x-15, y, 4, 10);
+			ellipse(x+15, y, 4, 10);
+		}
 	}
  }    
