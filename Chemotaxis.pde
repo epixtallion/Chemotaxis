@@ -1,6 +1,9 @@
 //initialize how many bacteria there are
 Bacteria b[] = new Bacteria[20];
 
+//initialize how many possible bubbles on the screen
+Bubble bb[] = new Bubble[5];
+
 //background color variable
 color bg = color(52, 102, 155);
 
@@ -8,8 +11,15 @@ color bg = color(52, 102, 155);
  {
  	background(bg);
  	size(400, 400);
+
+ 	//initialize bacteria
  	for(int i = 0; i < b.length; i++){
  		b[i] = new Bacteria();
+ 	}
+
+ 	 //initialize bacteria
+ 	for(int i = 0; i < bb.length; i++){
+ 		bb[i] = new Bubble();
  	}
  }   
  void draw()   
@@ -18,8 +28,13 @@ color bg = color(52, 102, 155);
  	rect(0, 0, 400, 400);
  	for(int i = 0; i < b.length; i++){
  		b[i].move();
- 		for(int ii = 0; ii < b[i].speed; ii++){
- 			b[i].show();
+ 		b[i].show();
+ 	}
+ 	for(int i = 0; i < bb.length; i++){
+ 		if (bb[i].dead){
+ 			bb[i] = new Bubble();
+ 		} else {
+ 			bb[i].move();
  		}
  	}
  }  
@@ -65,14 +80,15 @@ color bg = color(52, 102, 155);
 		}
 	}
  }
- /*class Bubble{
+class Bubble{
  	int x, y, size, speed;
- 	boolean dead = false
+ 	boolean dead;
  	Bubble(){
  		x = (int) (Math.random() * 405) - 4;
  		y = 400;
  		size = (int) (Math.random() * 25) + 5;
  		speed = (int) (Math.random() * 10) + 1;
+ 		dead = Math.random() < .1;
  	}
  	void move(){
  		if (!dead){
@@ -80,8 +96,8 @@ color bg = color(52, 102, 155);
  				: (int) (Math.random()*speed - speed);
  			y = y + speed;
  			x = x + offset;
- 			fill(144, 244, 239, 30);
- 			ellipse()
+ 			fill(144, 244, 239);
+ 			ellipse(x, y, size, size);
  		}
  	}
- }*/
+ }
